@@ -1,0 +1,3 @@
+- [ ] Traffic Lights based on the cars estimation
+- [ ] Gallery app which zooms,panels through various images ,etc using camera
+- [ ] 
