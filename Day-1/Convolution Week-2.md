@@ -141,3 +141,42 @@ Uses multiple different size filters at the same time. But the 1x1 convolution i
 
 The Inception network, also known as GoogLeNet, is a deep neural network architecture designed by Google. It's known for using "inception modules," which combine different-sized convolutions and pooling operations in parallel to capture diverse features. This approach helps efficiently recognize complex patterns in images while managing computation. Inception networks were successful in image recognition challenges due to their ability to balance accuracy and efficiency.
 
+MOBILE NET
+
+Normal ones
+![[Pasted image 20230813220501.png]]
+difference
+![[Pasted image 20230813220845.png]]
+MobileNetV2
+![[Pasted image 20230813222103.png]]
+Residual Networks are used in V2 to use the residual network advantages
+
+MobileNetV1 and MobileNetV2 are both efficient neural network architectures for mobile devices. MobileNetV2 improves upon MobileNetV1 by introducing inverted residual blocks, shortcut connections, and bottleneck designs. These enhancements lead to better accuracy and efficiency in MobileNetV2, making it a preferred choice for resource-constrained applications.
+
+**![[Pasted image 20230813222529.png]]
+
+
+EFFICIENT-NET
+For individuality for specific devices managing between depth,length,input,etc
+
+TRANSFER LEARNING:
+Using Others models and changing the output for your output while freezing their earlier layers is actually good.
+If you have large dataset you can then not freeze the transferred layers and then use them.
+
+Data Augmentation:
+Common ones
+Mirroring-Commonly used
+Random Cropping: Different random crops
+Rotation
+Shearing: Making from rectangle to trapezoid
+Local warping,etc
+![[Screenshot from 2023-08-13 22-48-03.png]]
+
+Color Shifting,
+PCA colour augmentation:
+PCA color augmentation is a method to make images more diverse for training computers. It changes the colors of images in a realistic way using math. This helps computers understand objects better even when colors are different. It's like giving the computer different views of things to learn from.
+
+State of Computer Vision:
+The "data engineering vs. hand engineering" dilemma refers to a decision that machine learning practitioners face when designing and building a model. It involves choosing between two approaches: relying heavily on the raw data and letting the model learn from it (data engineering), or manually crafting and designing features based on domain knowledge (hand engineering).
+![[Pasted image 20230813225904.png]]
+
