@@ -116,3 +116,28 @@ Simpler Terms: Each filter in a convolutional layer captures specific features s
 
 VGG-16 Network
 ![[Pasted image 20230813164800.png]]
+
+
+SKIP CONNECTIONS
+information from a l to a l+2 it has to go through all the networks so now we skip through all these steps , in residual net we skip all the steps we cna use a shortcut to go deeper to the network .
+Why?
+So when you use more layer in a netowork in theory the training erro should decrease in theory but in practice it doesn't work that way due to issues like overfitting,etc.
+But in resnets this issue is resolved.
+
+1X1 Convolution:
+Network idea
+Feature reduction
+Dimensionality reduction
+Increaseing model expressiveness
+
+Inception Network:
+Bottleneck or 1x1 convolution is used to reduce the complexity of the model.
+Block of network wheree the different kernals are used and the operations are then concatenated along the channel dimension.
+They also use 1x1 convolutions to reduce the number of input channels.
+
+Inception module:
+Previous Activation: 
+Uses multiple different size filters at the same time. But the 1x1 convolution is used to make the computation faster . But how is the bottle neck not creating issues?
+
+The Inception network, also known as GoogLeNet, is a deep neural network architecture designed by Google. It's known for using "inception modules," which combine different-sized convolutions and pooling operations in parallel to capture diverse features. This approach helps efficiently recognize complex patterns in images while managing computation. Inception networks were successful in image recognition challenges due to their ability to balance accuracy and efficiency.
+
