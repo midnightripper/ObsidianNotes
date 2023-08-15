@@ -1,3 +1,175 @@
+Functional API is much more robust like it can actually help in issues like multiple inputs and outputs compared to the traditional sequential one.
+Sequential is a straight line.
+Functional model is graph.
+A skip connection can be done via functional api looks like it would be useful in the future let's see what the future aholds.
+![[Pasted image 20230813002334.jpg]]
+Subclassing api is used much frequently i always used them in my old project never knew what was so special about it anyway?
+They say maximum flexibility for custom architectures
+Dynamic logic something
+Research level work
+Looks like it goes more fundamentally
+
+Creating model and adding layers seems very problematic but is very simple to implement
+Very unflexible
+
+
+Sub classing gives flexibility to create custom architectures which have various behavior
+New unknown custom layer that isn;t available in keras can also be implemented in here.
+
+Trying to do coursera conv networks week 1 assignment 2
+Done
+Functional works better
+
+# CHATGPT GENERATED
+
+## Simplifying Deep Learning: Functional API and Subclassing API Explained
+
+If you're a computer science engineer delving into deep learning, you've likely come across terms like Functional API and Subclassing API. Let's break down these concepts in straightforward language:
+![[Pasted image 20230813005806.jpg]]
+## The Functional API: Flexible and Powerful
+
+Think of the Functional API as a versatile tool for building advanced models. It's like creating a roadmap with multiple paths instead of just a straight line. This approach is fantastic when you're dealing with complex situations involving many inputs and outputs. It can handle challenges like having different types of data flowing through your model.
+
+A key advantage is its ability to incorporate skip connections, which are like shortcuts that help your model learn more effectively. This is crucial for building smarter and more accurate neural networks.
+
+## Subclassing API: Crafting Custom Designs
+
+The Subclassing API is like giving you a magic wand to design your own deep learning architecture. It's perfect when you want to go beyond standard models and create something entirely unique. Think of it as the ultimate tool for customizing your neural network.
+
+This API lets you add new layers that aren't already available, giving you the freedom to experiment and explore new ideas. It's like being in a playground where you can build any structure you can imagine.
+
+## Choosing the Right Path
+
+In a nutshell, the Functional API is great for making intricate models that can handle different types of data and challenges. On the other hand, the Subclassing API is your go-to when you want to unleash your creativity and design custom architectures.
+
+So, whether you're aiming for flexibility or pushing the boundaries of deep learning, these APIs have got you covered. Embrace the power of Functional and Subclassing APIs to create models that suit your needs and take your skills to the next level.
+## Implementing Models in TensorFlow's Keras API
+
+When working with TensorFlow's Keras API, there are several ways to create and define models based on your project's complexity and requirements. Here, we'll explore four common approaches and their advantages and disadvantages:
+
+### 1. **Sequential API (`tf.keras.Sequential`):**
+
+The Sequential API is the simplest way to create a linear stack of layers.
+
+```python
+import tensorflow as tf
+from tensorflow.keras import layers
+
+model = tf.keras.Sequential([
+    layers.Dense(64, activation='relu', input_shape=(input_dim,)),
+    layers.Dense(128, activation='relu'),
+    layers.Dense(output_classes, activation='softmax')
+])
+```
+
+Advantages:
+- Simple and easy to use for linear architectures.
+- Suitable for feedforward networks.
+- Concise code for straightforward models.
+
+Disadvantages:
+- Limited flexibility for complex architectures.
+- Cannot handle multiple input/output streams or shared layers.
+
+### 2. **Functional API (`tf.keras.Model`):**
+
+The Functional API allows for more complex architectures with multiple input/output streams and shared layers.
+
+```python
+import tensorflow as tf
+from tensorflow.keras import layers
+
+inputs = tf.keras.Input(shape=(input_dim,))
+x = layers.Dense(64, activation='relu')(inputs)
+x = layers.Dense(128, activation='relu')(x)
+outputs = layers.Dense(output_classes, activation='softmax')(x)
+model = tf.keras.Model(inputs=inputs, outputs=outputs)
+```
+
+Advantages:
+- Supports creation of models with multiple inputs/outputs.
+- Enables more complex and branched network structures.
+- Ideal for models with custom logic between layers.
+
+Disadvantages:
+- Slightly more verbose compared to the Sequential API.
+- Requires a deeper understanding of layer connectivity.
+
+### 3. **Subclassing API (`tf.keras.Model` with custom class):**
+
+The Subclassing API offers maximum flexibility and customization for creating models and layers.
+
+```python
+import tensorflow as tf
+from tensorflow.keras import layers
+
+class CustomModel(tf.keras.Model):
+    def __init__(self):
+        super(CustomModel, self).__init__()
+        self.dense1 = layers.Dense(64, activation='relu')
+        self.dense2 = layers.Dense(128, activation='relu')
+        self.output_layer = layers.Dense(output_classes, activation='softmax')
+       
+    def call(self, inputs):
+        x = self.dense1(inputs)
+        x = self.dense2(x)
+        return self.output_layer(x)
+
+model = CustomModel()
+```
+
+Advantages:
+- Complete flexibility for implementing custom architectures and operations.
+- Suitable for complex architectures and research-level work.
+- Dynamic logic can be implemented inside the `call` method.
+
+Disadvantages:
+- Requires more code and deeper knowledge of TensorFlow operations.
+- Can be error-prone if not implemented carefully.
+
+### 4. **Creating a model and adding layers one by one:**
+
+This approach is similar to the Sequential API but allows for more explicit layer addition.
+
+```python
+import tensorflow as tf
+from tensorflow.keras import layers
+
+model = tf.keras.models.Sequential()
+model.add(layers.Dense(64, activation='relu', input_shape=(input_dim,)))
+model.add(layers.Dense(128, activation='relu'))
+model.add(layers.Dense(output_classes, activation='softmax'))
+```
+
+Advantages:
+- Simple and similar to the Sequential API.
+- More explicit layer addition than the Sequential API.
+
+Disadvantages:
+- Not as concise as the Sequential API.
+- Less flexible compared to the Functional and Subclassing APIs.
+
+Choose the approach that best matches your project's requirements, your familiarity with TensorFlow/Keras, and the complexity of your model. Whether you're building a simple feedforward network or a complex custom architecture, TensorFlow's Keras API provides various options to suit your needs.
+
+## FAQs
+
+1. **What's the main benefit of the Functional API?**
+   It's perfect for handling complex situations and different types of data in your neural network.
+
+2. **When should I use the Subclassing API?**
+   Whenever you want to create a completely unique neural network with custom layers and behaviors.
+
+3. **Can I use both APIs together?**
+   Absolutely! You can choose the best approach for each part of your project.
+
+4. **What are skip connections, and why are they important?**
+   Skip connections help your model learn better and create more accurate predictions by taking shortcuts through the layers.
+
+5. **How do I decide which API to use?**
+   Choose the Functional API for complexity and versatility, and the Subclassing API for custom designs and experimentation.
+
+
+
 We can learn from well-done CNN setups and use their models for tasks like spotting edges. This can be a great way to enhance our work.
 
 Research papers could be read and be able to understand
