@@ -58,3 +58,7 @@ Through this process, we derive the ultimate convolutional neural network (CNN) 
 **Challenge: Suboptimal Bounding Box Positioning**
 
 However, a concern arises regarding the accuracy of the bounding box's placement around the detected object. The current approach might not yield precise positioning of the bounding box, potentially impacting the overall performance of object detection and localization.
+
+Face Verification vs Recognition:
+![[Pasted image 20230816210848.png]]
+
