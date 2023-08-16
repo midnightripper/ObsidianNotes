@@ -62,3 +62,23 @@ However, a concern arises regarding the accuracy of the bounding box's placement
 Face Verification vs Recognition:
 ![[Pasted image 20230816210848.png]]
 
+**Face Verification:**
+
+- **Definition:** Face verification is the process of confirming whether two given facial images belong to the same person or not.
+- **Task:** It focuses on answering a binary question: "Is the person in Image A the same as the person in Image B?"
+- **Use Case:** Commonly used in scenarios where identity needs to be verified, such as unlocking devices, accessing secure areas, or online identity confirmation.
+- **Example:** When unlocking a smartphone using facial recognition, the device verifies if the captured face matches the enrolled face.
+- **Output:** Either a "match" or "not match" decision is provided.
+
+**Face Recognition:**
+
+- **Definition:** Face recognition involves identifying a person by matching their facial features against a database of known faces.
+- **Task:** It aims to determine the identity of a person in an image by comparing it with a set of known faces.
+- **Use Case:** Applied in various contexts like surveillance, biometric authentication, and tagging individuals in photos.
+- **Example:** Social media platforms use face recognition to suggest names for people in photos based on their facial features.
+- **Output:** Provides the identity of the recognized person, often from a predefined list of individuals.
+
+## One shot Learning
+If you have very limited data to train on then you can't practically train a model every time you get new person added or with such little data what  should you do?
+![[Pasted image 20230817014117.png]]
+One-shot learning is a machine learning paradigm that focuses on training models to recognize new objects or classes with very limited training examples, often just a single example per class. In traditional machine learning, models require a substantial amount of data to generalize effectively. However, in real-world scenarios, obtaining a large dataset for every new class might be impractical or time-consuming.
