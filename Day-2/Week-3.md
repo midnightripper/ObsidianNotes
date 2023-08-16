@@ -82,3 +82,13 @@ Face Verification vs Recognition:
 If you have very limited data to train on then you can't practically train a model every time you get new person added or with such little data what  should you do?
 ![[Pasted image 20230817014117.png]]
 One-shot learning is a machine learning paradigm that focuses on training models to recognize new objects or classes with very limited training examples, often just a single example per class. In traditional machine learning, models require a substantial amount of data to generalize effectively. However, in real-world scenarios, obtaining a large dataset for every new class might be impractical or time-consuming.
+
+SIAMESE NETWORK
+
+![[Pasted image 20230817014836.png]]
+![[Pasted image 20230817014923.png]]
+
+TRIPLET LOSS:
+![[Pasted image 20230817015749.png]]
+![[Pasted image 20230817015949.png]]
+![[Pasted image 20230817021256.png]]
