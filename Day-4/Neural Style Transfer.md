@@ -12,3 +12,11 @@
     
 
 **Applications and Creativity:** Neural Style Transfer finds applications in creating artistic images, generating unique visual effects, and exploring the interplay between content and style. It allows artists and enthusiasts to fuse the essence of different images into visually appealing and intriguing compositions, blurring the lines between content and artistic expression.
+
+**Introduction to Cost Function:** The cost function in Neural Style Transfer (NST) quantifies the difference between the content and style of the generated image compared to the content and style images. This function guides the optimization process to achieve a transformed image that strikes a balance between retaining the content and adopting the style.
+
+**Content Cost:** The content cost measures the similarity between the feature representations of the generated image and the content image. It's computed by comparing the activation values of certain layers in a pre-trained CNN for both images. Minimizing the content cost ensures that the generated image retains the essential structural information of the content.
+
+**Style Cost:** The style cost captures the difference in texture, colors, and patterns between the feature representations of the generated image and the style image. It's computed by comparing the Gram matrices of activation values in multiple layers of the CNN. Minimizing the style cost results in the generated image adopting the artistic style of the style image.
+
+**Total Cost:** The total cost is a combination of the content and style costs, weighted by hyperparameters. Adjusting these weights allows you to emphasize either the content or the style more during optimization.

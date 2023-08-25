@@ -62,145 +62,50 @@ Bi-Directional RNN
 
 #### Forget gate 𝚪𝑓
 
-- Let's assume you are reading words in a piece of text, and plan to use an LSTM to keep track of grammatical structures, such as whether the subject is singular ("puppy") or plural ("puppies").
-- If the subject changes its state (from a singular word to a plural word), the memory of the previous state becomes outdated, so you'll "forget" that outdated state.
-- The "forget gate" is a tensor containing values between 0 and 1.
-    - If a unit in the forget gate has a value close to 0, the LSTM will "forget" the stored state in the corresponding unit of the previous cell state.
-    - If a unit in the forget gate has a value close to 1, the LSTM will mostly remember the corresponding value in the stored state.
+In an LSTM (Long Short-Term Memory) network, the forget gate plays a crucial role in determining what information from the previous cell state should be retained or discarded for the current time step. It helps the model "forget" outdated or irrelevant information, such as when transitioning from singular to plural subjects in language processing.
+
+The forget gate is a tensor with values between 0 and 1. These values control how much of the previous cell state should be forgotten (set to 0) or remembered (set to 1). The forget gate's behavior is determined by weights (𝐖𝑓) and is influenced by the previous hidden state and the current input (𝑥𝑡).
 
 ##### Equation
 ![[Pasted image 20230819000559.png]]
-##### Explanation of the equation:
-
-- 𝐖𝐟�� contains weights that govern the forget gate's behavior.
-- The previous time step's hidden state [𝑎⟨𝑡−1⟩[�⟨�−1⟩ and current time step's input 𝑥⟨𝑡⟩]�⟨�⟩] are concatenated together and multiplied by 𝐖𝐟��.
-- A sigmoid function is used to make each of the gate tensor's values 𝚪⟨𝑡⟩𝑓��⟨�⟩ range from 0 to 1.
-- The forget gate 𝚪⟨𝑡⟩𝑓��⟨�⟩ has the same dimensions as the previous cell state 𝑐⟨𝑡−1⟩�⟨�−1⟩.
-- This means that the two can be multiplied together, element-wise.
-- Multiplying the tensors 𝚪⟨𝑡⟩𝑓∗𝐜⟨𝑡−1⟩��⟨�⟩∗�⟨�−1⟩ is like applying a mask over the previous cell state.
-- If a single value in 𝚪⟨𝑡⟩𝑓��⟨�⟩ is 0 or close to 0, then the product is close to 0.
-    - This keeps the information stored in the corresponding unit in 𝐜⟨𝑡−1⟩�⟨�−1⟩ from being remembered for the next time step.
-- Similarly, if one value is close to 1, the product is close to the original value in the previous cell state.
-    - The LSTM will keep the information from the corresponding unit of 𝐜⟨𝑡−1⟩�⟨�−1⟩, to be used in the next time step.
-
-##### Variable names in the code
-The variable names in the code are similar to the equations, with slight differences.
-
-- `Wf`: forget gate weight 𝐖𝑓
-- `bf`: forget gate bias 𝐛𝑓
-- `ft`: forget gate Γ⟨𝑡⟩𝑓Γ
 
 #### Candidate value 𝐜̃ ⟨𝑡⟩
 
-- The candidate value is a tensor containing information from the current time step that **may** be stored in the current cell state 𝐜⟨𝑡⟩�⟨�⟩.
-- The parts of the candidate value that get passed on depend on the update gate.
-- The candidate value is a tensor containing values that range from -1 to 1.
-- The tilde "~" is used to differentiate the candidate 𝐜̃ ⟨𝑡⟩�~⟨�⟩ from the cell state 𝐜⟨𝑡⟩
-
+The candidate value represents the information that could potentially be added to the cell state for the current time step. It captures the current input's influence on the cell state. The candidate value's range is between -1 and 1, and it's created using the tanh function to ensure it stays within this range.
 ##### Equation[](https://useaapvuptka.labs.coursera.org/notebooks/W1A1/Building_a_Recurrent_Neural_Network_Step_by_Step.ipynb#Equation)
 
 ![[Pasted image 20230819000639.png]]
-##### Explanation of the equation[](https://useaapvuptka.labs.coursera.org/notebooks/W1A1/Building_a_Recurrent_Neural_Network_Step_by_Step.ipynb#Explanation-of-the-equation)
-
-- The _tanh_ function produces values between -1 and 1.
-
-##### Variable names in the code
-
-- `cct`: candidate value 𝐜̃ ⟨𝑡⟩
 
 #### Update gate 𝚪𝑖
 
-- You use the update gate to decide what aspects of the candidate 𝐜̃ ⟨𝑡⟩�~⟨�⟩ to add to the cell state 𝑐⟨𝑡⟩�⟨�⟩.
-- The update gate decides what parts of a "candidate" tensor 𝐜̃ ⟨𝑡⟩�~⟨�⟩ are passed onto the cell state 𝐜⟨𝑡⟩�⟨�⟩.
-- The update gate is a tensor containing values between 0 and 1.
-    - When a unit in the update gate is close to 1, it allows the value of the candidate 𝐜̃ ⟨𝑡⟩�~⟨�⟩ to be passed onto the hidden state 𝐜⟨𝑡⟩�⟨�⟩
-    - When a unit in the update gate is close to 0, it prevents the corresponding value in the candidate from being passed onto the hidden state.
-- Notice that the subscript "i" is used and not "u", to follow the convention used in the literature.
+The update gate helps decide what parts of the candidate value should be incorporated into the new cell state. It's another tensor with values between 0 and 1, controlled by weights (𝐖𝑖). If a unit's value is close to 1, it allows the corresponding value in the candidate value to be passed onto the cell state; if it's close to 0, that value is excluded.
 
 ##### Equation[](https://useaapvuptka.labs.coursera.org/notebooks/W1A1/Building_a_Recurrent_Neural_Network_Step_by_Step.ipynb#Equation)
 
 ![[Pasted image 20230819000703.png]]
-##### Explanation of the equation
-
-- Similar to the forget gate, here 𝚪⟨𝑡⟩𝑖��⟨�⟩, the sigmoid produces values between 0 and 1.
-- The update gate is multiplied element-wise with the candidate, and this product (𝚪⟨𝑡⟩𝑖∗𝑐̃ ⟨𝑡⟩��⟨�⟩∗�~⟨�⟩) is used in determining the cell state 𝐜⟨𝑡⟩�⟨�⟩.
-
-##### Variable names in code (Please note that they're different than the equations)[](https://useaapvuptka.labs.coursera.org/notebooks/W1A1/Building_a_Recurrent_Neural_Network_Step_by_Step.ipynb#Variable-names-in-code-(Please-note-that-they're-different-than-the-equations))
-
-In the code, you'll use the variable names found in the academic literature. These variables don't use "u" to denote "update".
-
-- `Wi` is the update gate weight 𝐖𝑖�� (not "Wu")
-- `bi` is the update gate bias 𝐛𝑖�� (not "bu")
-- `it` is the update gate 𝚪⟨𝑡⟩𝑖��⟨�⟩ (not "ut")
 
 #### Cell state 𝐜⟨𝑡⟩
 
-- The cell state is the "memory" that gets passed onto future time steps.
-- The new cell state 𝐜⟨𝑡⟩�⟨�⟩ is a combination of the previous cell state and the candidate value.
+The cell state maintains the memory of past information and is updated based on the forget gate and the update gate. The previous cell state is adjusted by the forget gate, while the candidate value is adjusted by the update gate. The resulting new cell state is a combination of these two influences.
 
 ##### Equation[](https://useaapvuptka.labs.coursera.org/notebooks/W1A1/Building_a_Recurrent_Neural_Network_Step_by_Step.ipynb#Equation)
 
 ![[Pasted image 20230819000729.png]]
-##### Explanation of equation[](https://useaapvuptka.labs.coursera.org/notebooks/W1A1/Building_a_Recurrent_Neural_Network_Step_by_Step.ipynb#Explanation-of-equation)
-
-- The previous cell state 𝐜⟨𝑡−1⟩�⟨�−1⟩ is adjusted (weighted) by the forget gate 𝚪⟨𝑡⟩𝑓��⟨�⟩
-- and the candidate value 𝐜̃ ⟨𝑡⟩�~⟨�⟩, adjusted (weighted) by the update gate 𝚪⟨𝑡⟩𝑖��⟨�⟩
-
-##### Variable names and shapes in the code[](https://useaapvuptka.labs.coursera.org/notebooks/W1A1/Building_a_Recurrent_Neural_Network_Step_by_Step.ipynb#Variable-names-and-shapes-in-the-code)
-
-- `c`: cell state, including all time steps, 𝐜� shape (𝑛𝑎,𝑚,𝑇𝑥)
-- `c_next`: new (next) cell state, 𝐜⟨𝑡⟩�⟨�⟩ shape (𝑛𝑎,𝑚)
-- `c_prev`: previous cell state, 𝐜⟨𝑡−1⟩�⟨�−1⟩, shape (𝑛𝑎,𝑚)
 
 #### Output gate 𝚪𝑜��[](https://useaapvuptka.labs.coursera.org/notebooks/W1A1/Building_a_Recurrent_Neural_Network_Step_by_Step.ipynb#Output-gate-$\mathbf{\Gamma}_{o}$)
 
-- The output gate decides what gets sent as the prediction (output) of the time step.
-- The output gate is like the other gates, in that it contains values that range from 0 to 1.
+The output gate determines what portion of the cell state should be used to calculate the hidden state, which will then influence the prediction. The output gate's values, like other gates, are between 0 and 1.
 
 ##### Equation
 
 ![[Pasted image 20230819000757.png]]
-##### Explanation of the equation[](https://useaapvuptka.labs.coursera.org/notebooks/W1A1/Building_a_Recurrent_Neural_Network_Step_by_Step.ipynb#Explanation-of-the-equation)
-
-- The output gate is determined by the previous hidden state 𝐚⟨𝑡−1⟩�⟨�−1⟩ and the current input 𝐱⟨𝑡⟩�⟨�⟩
-- The sigmoid makes the gate range from 0 to 1.
-
-##### Variable names in the code[](https://useaapvuptka.labs.coursera.org/notebooks/W1A1/Building_a_Recurrent_Neural_Network_Step_by_Step.ipynb#Variable-names-in-the-code)
-
-- `Wo`: output gate weight, 𝐖𝐨��
-- `bo`: output gate bias, 𝐛𝐨��
-- `ot`: output gate, 𝚪⟨𝑡⟩𝑜��⟨�⟩
 
 #### Hidden state 𝐚⟨𝑡⟩�⟨�⟩[](https://useaapvuptka.labs.coursera.org/notebooks/W1A1/Building_a_Recurrent_Neural_Network_Step_by_Step.ipynb#Hidden-state-$\mathbf{a}^{\langle-t-\rangle}$)
 
-- The hidden state gets passed to the LSTM cell's next time step.
-- It is used to determine the three gates (𝚪𝑓,𝚪𝑢,𝚪𝑜��,��,��) of the next time step.
-- The hidden state is also used for the prediction 𝑦⟨𝑡⟩�⟨�⟩.
-
-##### Equation[](https://useaapvuptka.labs.coursera.org/notebooks/W1A1/Building_a_Recurrent_Neural_Network_Step_by_Step.ipynb#Equation)
+The hidden state is the memory that gets passed to the next LSTM time step. It's determined by the current cell state, influenced by the output gate, and used to calculate the three gates of the next time step.
 
 ![[Pasted image 20230819000814.png]]
-##### Explanation of equation[](https://useaapvuptka.labs.coursera.org/notebooks/W1A1/Building_a_Recurrent_Neural_Network_Step_by_Step.ipynb#Explanation-of-equation)
-
-- The hidden state 𝐚⟨𝑡⟩�⟨�⟩ is determined by the cell state 𝐜⟨𝑡⟩�⟨�⟩ in combination with the output gate 𝚪𝑜��.
-- The cell state state is passed through the `tanh` function to rescale values between -1 and 1.
-- The output gate acts like a "mask" that either preserves the values of tanh(𝐜⟨𝑡⟩)tanh⁡(�⟨�⟩) or keeps those values from being included in the hidden state 𝐚⟨𝑡⟩�⟨�⟩
-
-##### Variable names and shapes in the code[](https://useaapvuptka.labs.coursera.org/notebooks/W1A1/Building_a_Recurrent_Neural_Network_Step_by_Step.ipynb#Variable-names--and-shapes-in-the-code)
-
-- `a`: hidden state, including time steps. 𝐚� has shape (𝑛𝑎,𝑚,𝑇𝑥)(��,�,��)
-- `a_prev`: hidden state from previous time step. 𝐚⟨𝑡−1⟩�⟨�−1⟩ has shape (𝑛𝑎,𝑚)(��,�)
-- `a_next`: hidden state for next time step. 𝐚⟨𝑡⟩�⟨�⟩ has shape (𝑛𝑎,𝑚)(��,�)
 
 #### Prediction 𝐲⟨𝑡⟩𝑝𝑟𝑒𝑑
 
-- The prediction in this use case is a classification, so you'll use a softmax.
-
-The equation is:
-
-𝐲⟨𝑡⟩𝑝𝑟𝑒𝑑=softmax(𝐖𝑦𝐚⟨𝑡⟩+𝐛𝑦)�����⟨�⟩=softmax(���⟨�⟩+��)
-
-##### Variable names and shapes in the code[](https://useaapvuptka.labs.coursera.org/notebooks/W1A1/Building_a_Recurrent_Neural_Network_Step_by_Step.ipynb#Variable-names-and-shapes-in-the-code)
-
-- `y_pred`: prediction, including all time steps. 𝐲𝑝𝑟𝑒𝑑����� has shape (𝑛𝑦,𝑚,𝑇𝑥)(��,�,��). Note that (𝑇𝑦=𝑇𝑥)(��=��) for this example.
-- `yt_pred`: prediction for the current time step 𝑡�. 𝐲⟨𝑡⟩𝑝𝑟𝑒𝑑�����⟨�⟩ has shape (𝑛𝑦,𝑚)
+- In the context of classification, the prediction is obtained using a softmax function applied to the weighted sum of the hidden state (𝐚⟨𝑡⟩) and a bias (𝐛𝑦). The softmax function converts these values into probabilities, providing the final prediction for the current time step.
