@@ -21,3 +21,53 @@
 
 **Summary:** Word2Vec revolutionized word embeddings by capturing word semantics and context in numerical vectors. It's a foundational technique in NLP, enhancing the ability of machines to understand and work with textual data effectively.
 
+## Detailed Example
+
+Imagine you're reading a book about animals, and you come across the sentence: "The cat chased the mouse." Word2Vec helps machines understand the meanings of words by representing them as numerical vectors. Let's explore this using two Word2Vec algorithms: Skip-Gram and Continuous Bag of Words (CBOW).
+
+### **Skip-Gram :** 
+In Skip-Gram, the model predicts context words given a target word. Let's consider the target word "chased." The model tries to predict the words that often appear around "chased."
+
+Target Word: "chased" Context Words: "The," "cat," "the," "mouse"
+
+The model learns that when "chased" appears, words like "The," "cat," "the," and "mouse" are likely to be nearby. It forms a vector for "chased" that captures these relationships.
+
+### **CBOW:**
+In CBOW, the model predicts the target word based on surrounding context words. Let's consider the context words "The," "cat," "the," and "mouse." The model predicts the missing target word, "chased."
+
+Context Words: "The," "cat," "the," "mouse" Target Word: ???
+
+The model learns that when "The," "cat," "the," and "mouse" are present, the missing word is likely to be "chased."
+
+**Vector Representations:** Word2Vec generates dense numerical vectors for each word. These vectors capture semantic relationships. For instance, the vectors for "cat" and "dog" might be close because they both relate to animals. Additionally, vector arithmetic can capture analogies. For example:
+
+Vector("king") - Vector("man") + Vector("woman") ≈ Vector("queen")
+
+This means that if you take the vector for "king," subtract the vector for "man," and add the vector for "woman," you get a vector that's close to the vector for "queen."
+
+**Applications:** Word2Vec's vectors are used in various NLP tasks. If you're building a sentiment analysis model, you can use pre-trained Word2Vec embeddings to represent words. This helps the model understand context and meanings, enhancing its ability to analyze sentiment in text.
+
+In summary, Word2Vec transforms words into numerical vectors, capturing semantics and context. It's like teaching machines to understand words like humans by representing them in a mathematical form.
+
+### **GloVe Word Embedding:**
+
+**Introduction to GloVe (Global Vectors for Word Representation):** GloVe is a popular word embedding technique that focuses on capturing word semantics by leveraging global statistical properties of word co-occurrences. Developed by researchers at Stanford University, GloVe offers an effective way to generate word embeddings that reflect both semantic relationships and word frequencies.
+
+**Key Features and Advantages:**
+
+1. **Statistical Insights:** GloVe is based on the idea that word co-occurrences can provide meaningful information about word relationships. It uses a global word-to-word co-occurrence matrix, enabling it to capture intricate semantic associations across the entire corpus.
+    
+2. **Combining Frequency and Context:** GloVe combines the advantages of both frequency-based methods (like Word2Vec's Skip-Gram) and context-based methods (like LSA) by using ratios of co-occurrence probabilities. This results in embeddings that balance word semantics with their occurrence frequencies.
+    
+3. **Efficiency and Scalability:** GloVe's training process is computationally efficient and scalable. It doesn't involve complex architectures or extensive training procedures, making it relatively straightforward to implement and train.
+    
+4. **Quality of Embeddings:** GloVe embeddings often exhibit impressive quality, capturing semantic relationships, analogies, and syntactic patterns. They perform well on various NLP tasks, including word similarity, analogy completion, and even downstream tasks like sentiment analysis.
+    
+5. **Pre-Trained Models:** Pre-trained GloVe embeddings are readily available for various languages and domains. These embeddings can be used as features for NLP models without requiring extensive fine-tuning.
+    
+
+**Comparison with Other Embeddings:**
+
+Compared to other embeddings like Word2Vec and FastText, GloVe offers a distinctive approach by directly targeting global statistical properties. While Word2Vec and FastText focus more on local context and subword information, respectively, GloVe leverages word co-occurrences to build embeddings that excel in capturing word relationships based on both semantics and frequency.
+
+In summary, GloVe word embeddings stand out for their ability to harmonize word semantics and occurrence frequencies, providing high-quality embeddings that are widely applicable across various NLP tasks, making them a powerful choice in the realm of word representation learning.
