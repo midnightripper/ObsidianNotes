@@ -46,3 +46,11 @@ Here's how the BLEU score works:
 It's important to note that while the BLEU score is widely used, it has limitations. It primarily focuses on lexical similarity and does not capture nuances in meaning or fluency. Additionally, it doesn't consider the overall coherence and readability of the translation. As a result, other metrics and evaluation techniques, such as human evaluation and more advanced metrics like METEOR and ROUGE, are often used in conjunction with BLEU to provide a more comprehensive assessment of machine-generated text quality.
 
 
+![[Pasted image 20230829154622.png]]
+
+## Length Normalization
+The purpose of length normalization in beam search is to address the bias towards shorter sequences that can occur during the decoding process. Beam search is a popular algorithm used in sequence generation tasks, such as machine translation or text generation. It explores multiple possible sequences and selects the most likely one based on a scoring function.
+
+Without length normalization, longer sequences tend to have lower probabilities compared to shorter sequences. This is because the probability of generating a correct sequence decreases exponentially with its length. As a result, beam search may favor shorter sequences that have higher probabilities.
+
+Length normalization is introduced to mitigate this bias. It involves dividing the log-probability of a sequence by its length, typically using a scaling factor. This normalization encourages longer sequences by penalizing them less, making the selection process more fair. By incorporating length normalization, beam search can generate sequences of more diverse lengths and improve the overall quality of the output.
