@@ -136,5 +136,3 @@
     - [ ] Conditional Independence Representation
     - [ ] Exact Inference Through Variable Elimination
     - [ ] Approximate Inference Through Sampling
-
-You can now copy and paste this checklist directly into your Obsidian to-do list and start checking off items as you cover them. Good luck with your studies!
