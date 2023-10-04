@@ -26,9 +26,9 @@ Five key aspects to analytical thinking:
 1. 📊 **Visualization** 
    - The graphical representation of information.
    - To understand and explain information more effectively.
-2. 🎯 **Strategy** 
+2. 🎯 **Strategy**
    - Strategizing helps data analysts see what they want to achieve with the data and how they can get there. Strategy also helps improve the quality and usefulness of the data we collect. By strategizing, we know all our data is valuable and can help us accomplish our goals.
-3. ⚙️ **Problem-orientation** 
+3. ⚙️ **Problem-orientation**
    - Data analysts use a problem-oriented approach in order to identify, describe, and solve problems. It's all about keeping the problem top of mind throughout the entire project.
 4. 🧪 **Correlation** 
    - Being able to identify a relationship between two or more pieces of data.

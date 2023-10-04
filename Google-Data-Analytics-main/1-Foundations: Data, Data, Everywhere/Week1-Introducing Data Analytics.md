@@ -13,7 +13,7 @@ The six steps of the data analysis process are ([data analysis life cycle](https
 - 📊 **Analyze** data to find patterns, relationships, and trends.
 - 📢 **Share** data with your audience.
 - 🚀 **Act** on the data and use the analysis results.
-
+![[Pasted image 20231002123914.png]]
 ## People Analytics 👥📊
 People Analytics, also known as Human Resources Analytics or Workforce Analytics, is the practice of collecting and analyzing data on the people who make up a company's workforce to gain insights and improve company operations.
 
